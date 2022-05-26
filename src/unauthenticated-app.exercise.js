@@ -2,8 +2,21 @@
 import {jsx} from '@emotion/core'
 
 import * as React from 'react'
-import {Input, Button, Spinner, FormGroup, ErrorMessage} from './components/lib'
-import {Modal, ModalContents, ModalOpenButton} from './components/modal'
+import VisuallyHidden from '@reach/visually-hidden'
+import {
+  Input,
+  CircleButton,
+  Button,
+  Spinner,
+  FormGroup,
+  ErrorMessage,
+} from './components/lib'
+import {
+  Modal,
+  ModalDismissButton,
+  ModalContents,
+  ModalOpenButton,
+} from './components/modal'
 import {Logo} from './components/logo'
 import {useAuth} from './context/auth-context'
 import {useAsync} from './utils/hooks'
@@ -59,6 +72,17 @@ function LoginForm({onSubmit, submitButton}) {
   )
 }
 
+const circleDismissButton = (
+  <div css={{display: 'flex', justifyContent: 'flex-end'}}>
+    <ModalDismissButton>
+      <CircleButton>
+        <VisuallyHidden>Close</VisuallyHidden>
+        <span aria-hidden>×</span>
+      </CircleButton>
+    </ModalDismissButton>
+  </div>
+)
+
 function UnauthenticatedApp() {
   const {login, register} = useAuth()
   return (
@@ -83,9 +107,11 @@ function UnauthenticatedApp() {
       >
         <Modal>
           <ModalOpenButton>
-            <Button variant="primary">Login</Button>
+            <Button onClick={() => alert('dejhb nmc')} variant="primary">
+              Login
+            </Button>
           </ModalOpenButton>
-          <ModalContents aria-label="Login form" title="Login">
+          <ModalContents aria-label="Login form" title={'Register'}>
             <LoginForm
               onSubmit={login}
               submitButton={<Button variant="primary">Login</Button>}
@@ -96,7 +122,7 @@ function UnauthenticatedApp() {
           <ModalOpenButton>
             <Button variant="secondary">Register</Button>
           </ModalOpenButton>
-          <ModalContents aria-label="Registration form" title="Register">
+          <ModalContents aria-label="Registration form" title={'Register'}>
             <LoginForm
               onSubmit={register}
               submitButton={<Button variant="secondary">Register</Button>}
