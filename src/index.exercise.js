@@ -8,7 +8,7 @@ function App() {
       <Logo width="80" height="80" />
       <h1>Bookshelf</h1>
       <div>
-        <button onClick={() => alert('login clicked')}>Login</button>
+        <button onClick={() => alert('login clicked')}>Logdfdwfin</button>
       </div>
       <div>
         <button onClick={() => alert('register clicked')}>Register</button>
