@@ -2,12 +2,14 @@
 import {jsx} from '@emotion/core'
 
 import * as React from 'react'
+import {queryCache} from 'react-query'
 import * as auth from 'auth-provider'
 import {BrowserRouter as Router} from 'react-router-dom'
-import {FullPageSpinner, FullPageErrorFallback} from './components/lib'
+import {FullPageSpinner} from './components/lib'
+import * as colors from './styles/colors'
 import {client} from './utils/api-client'
 import {useAsync} from './utils/hooks'
-// 🐨 import the AuthContext you created in ./context/auth-context
+import {AuthContext} from './context/auth-context'
 import {AuthenticatedApp} from './authenticated-app'
 import {UnauthenticatedApp} from './unauthenticated-app'
 
@@ -43,6 +45,7 @@ function App() {
   const register = form => auth.register(form).then(user => setData(user))
   const logout = () => {
     auth.logout()
+    queryCache.clear()
     setData(null)
   }
 
@@ -51,20 +54,35 @@ function App() {
   }
 
   if (isError) {
-    return <FullPageErrorFallback error={error} />
+    return (
+      <div
+        css={{
+          color: colors.danger,
+          height: '100vh',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <p>Uh oh... There's a problem. Try refreshing the app.</p>
+        <pre>{error.message}</pre>
+      </div>
+    )
   }
 
   if (isSuccess) {
     const props = {user, login, register, logout}
-    // 🐨 wrap all of this in the AuthContext.Provider and set the `value` to props
-    return user ? (
-      <Router>
-        {/* 💣 remove the props spread here */}
-        <AuthenticatedApp {...props} />
-      </Router>
-    ) : (
-      // 💣 remove the props spread here
-      <UnauthenticatedApp {...props} />
+    return (
+      <AuthContext.Provider value={props}>
+        {user ? (
+          <Router>
+            <AuthenticatedApp />
+          </Router>
+        ) : (
+          <UnauthenticatedApp />
+        )}
+      </AuthContext.Provider>
     )
   }
 }
