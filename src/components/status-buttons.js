@@ -1,5 +1,6 @@
 /** @jsx jsx */
 import {jsx} from '@emotion/core'
+// import {unstable_trace as trace} from 'scheduler/tracing'
 
 import * as React from 'react'
 import {
@@ -27,6 +28,9 @@ function TooltipButton({label, highlight, onClick, icon, ...rest}) {
     if (isError) {
       reset()
     } else {
+      // trace(`Click ${label}`, Performance.now(), () => {
+      //   run(onClick())
+      // })
       run(onClick())
     }
   }
