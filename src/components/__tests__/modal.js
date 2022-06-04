@@ -1,3 +1,3 @@
-export * from './modal.final'
+// export * from './modal.final'
 
-// export * from './modal.exercise'
+export * from './modal.exercise'

@@ -1,3 +1,3 @@
-export * from './setupTests.final'
+// export * from './setupTests.final'
 
-// export * from './setupTests.exercise'
+export * from './setupTests.exercise'
