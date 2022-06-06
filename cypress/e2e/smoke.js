@@ -1,3 +1,3 @@
-export * from './smoke.final'
+// export * from './smoke.final'
 
-// export * from './smoke.exercise'
+export * from './smoke.exercise'
