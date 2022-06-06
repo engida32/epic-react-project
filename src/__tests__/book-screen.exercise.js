@@ -14,6 +14,7 @@ import * as booksDB from 'test/data/books'
 import {formatDate} from 'utils/misc'
 import * as listItemsDB from 'test/data/list-items'
 import faker from 'faker'
+
 // const fakeTimerUserEvent = userEvent.setup({
 //   advanceTimers: () => jest.runOnlyPendingTimers(),
 // })
@@ -162,10 +163,12 @@ test('can mark as a read  ', async () => {
   // screen.debug()
 })
 
-// //editing note
+// editing note
 
-test('can mark as a read  ', async () => {
-  jest.fakeTimerUserEvent()
+test('can edit text area  ', async () => {
+  // const event = userEvent.setup()
+
+  // jest.useFakeTimers()
   // await loginAsUser()
   // window.history.pushState({}, 'Test page', `/book/${book.id}`)
 
@@ -176,15 +179,15 @@ test('can mark as a read  ', async () => {
 
   await render(<App />, {route, user})
 
-  const newNote = faker.lorem.word()
-  const notesTextArea = screen.getByRole('textbox', {name: /notes/i})
-  userEvent.clear(notesTextArea)
-  userEvent.type(notesTextArea, newNote)
+  const newNote = faker.lorem.words()
+  const notesTextarea = screen.getByRole('textbox', {name: /notes/i})
+  await userEvent.clear(notesTextarea)
+  await userEvent.type(notesTextarea, newNote)
 
   await screen.findByLabelText(/loading/i)
   // await waitForLaodingToFinish()
 
-  expect(notesTextArea).toHaveTextContent(newNote)
+  expect(notesTextarea).toHaveValue(newNote)
   expect(await listItemsDB.read(listItem.id)).toMatchObject({
     notes: newNote,
   })
