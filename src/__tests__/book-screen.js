@@ -1,6 +1,6 @@
-export * from './book-screen.final'
+// export * from './book-screen.final'
 
-// export * from './book-screen.exercise'
+export * from './book-screen.exercise'
 
 // 💯 Create mock server for all fetch requests
 // export * from './book-screen.extra-1'
