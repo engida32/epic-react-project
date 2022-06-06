@@ -31,4 +31,4 @@ const waitForLaodingToFinish = () =>
     ...screen.queryAllByText(/loading/i),
   ])
 export * from '@testing-library/react'
-export {render, waitForLaodingToFinish, loginAsUser, userEvent}
+export {render, waitForLaodingToFinish, loginAsUser}
